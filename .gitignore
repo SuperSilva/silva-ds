@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# NX
+.nx/cache
+.nx/workspace-data
+
+# Test coverage
+coverage/
+
+# Yarn
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# TypeScript
+*.tsbuildinfo
+
+# Storybook
+storybook-static/
+
+# macOS
+.DS_Store
+
+# Claude Code
+.claude/
