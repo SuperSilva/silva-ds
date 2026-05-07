@@ -32,6 +32,9 @@ export const defaultTheme: Theme = {
   // — Focus ring —
   '--ds-color-focus-ring': '#0070f3',
 
+  // — Colors: Border —
+  '--ds-color-border': '#d4d4d8',
+
   // — Colors: Text —
   '--ds-color-text-default': '#18181b',
   '--ds-color-text-subtle': '#71717a',
@@ -79,4 +82,9 @@ export const defaultTheme: Theme = {
   '--ds-button-height-sm': '32px',
   '--ds-button-height-md': '40px',
   '--ds-button-height-lg': '48px',
+
+  // — Component: Input —
+  '--ds-input-height-sm': '32px',
+  '--ds-input-height-md': '40px',
+  '--ds-input-height-lg': '48px',
 };

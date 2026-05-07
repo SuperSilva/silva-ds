@@ -14,7 +14,11 @@
     "baseUrl": ".",
     "paths": {
       "@design-system/button": ["packages/button/src/index.ts"],
+      "@design-system/layers": ["packages/layers/src/index.ts"],
+      "@design-system/modal": ["packages/modal/src/index.ts"],
+      "@design-system/dropdown": ["packages/dropdown/src/index.ts"],
       "@design-system/icons": ["packages/icons/src/index.ts"],
+      "@design-system/input": ["packages/input/src/index.ts"],
       "@design-system/icon-button": ["packages/icon-button/src/index.ts"],
       "@design-system/image": ["packages/image/src/index.ts"],
       "@design-system/list": ["packages/list/src/index.ts"],

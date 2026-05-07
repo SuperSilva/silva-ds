@@ -28,6 +28,8 @@ export const tokens = {
     textDefault: 'var(--ds-color-text-default)',
     textSubtle: 'var(--ds-color-text-subtle)',
     textDisabled: 'var(--ds-color-text-disabled)',
+
+    border: 'var(--ds-color-border)',
   },
 
   radius: {
@@ -77,5 +79,11 @@ export const tokens = {
     heightSm: 'var(--ds-button-height-sm)',
     heightMd: 'var(--ds-button-height-md)',
     heightLg: 'var(--ds-button-height-lg)',
+  },
+
+  input: {
+    heightSm: 'var(--ds-input-height-sm)',
+    heightMd: 'var(--ds-input-height-md)',
+    heightLg: 'var(--ds-input-height-lg)',
   },
 } as const;

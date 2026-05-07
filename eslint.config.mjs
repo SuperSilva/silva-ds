@@ -33,5 +33,11 @@ export default [
       'react/no-unescaped-entities': 'off',
     },
   },
+  {
+    files: ['apps/storybook/stories/**/*.{ts,tsx}'],
+    rules: {
+      'react-hooks/rules-of-hooks': 'off',
+    },
+  },
   prettier,
 ];
