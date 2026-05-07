@@ -14,7 +14,12 @@
     "baseUrl": ".",
     "paths": {
       "@design-system/button": ["packages/button/src/index.ts"],
-      "@design-system/theme": ["packages/theme/src/index.ts"]
+      "@design-system/icons": ["packages/icons/src/index.ts"],
+      "@design-system/icon-button": ["packages/icon-button/src/index.ts"],
+      "@design-system/image": ["packages/image/src/index.ts"],
+      "@design-system/list": ["packages/list/src/index.ts"],
+      "@design-system/theme": ["packages/theme/src/index.ts"],
+      "@design-system/typography": ["packages/typography/src/index.ts"]
     }
   }
 }

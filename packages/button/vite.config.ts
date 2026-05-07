@@ -10,10 +10,7 @@ export default defineConfig(({ command }) => ({
     wyw({
       include: ['**/*.{ts,tsx}'],
       babelOptions: {
-        presets: [
-          '@babel/preset-typescript',
-          ['@babel/preset-react', { runtime: 'automatic' }],
-        ],
+        presets: ['@babel/preset-typescript', ['@babel/preset-react', { runtime: 'automatic' }]],
       },
     }),
     react(),
@@ -21,7 +18,7 @@ export default defineConfig(({ command }) => ({
       ? [
           dts({
             include: ['src'],
-            exclude: ['src/**/*.test.{ts,tsx}', 'src/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
+            exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
             // Cross-package source alias causes a false rootDir error in dts;
             // the build and CSS extraction are correct regardless.
             skipDiagnostics: true,
@@ -49,12 +46,12 @@ export default defineConfig(({ command }) => ({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./src/test-setup.ts'],
+    setupFiles: ['./src/tests/test-setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/**/*.test.{ts,tsx}', 'src/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
+      exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
     },
   },
 }));

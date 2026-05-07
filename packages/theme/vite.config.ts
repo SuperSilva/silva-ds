@@ -11,7 +11,7 @@ export default defineConfig(({ command }) => ({
       ? [
           dts({
             include: ['src'],
-            exclude: ['src/**/*.test.{ts,tsx}', 'src/test-setup.ts'],
+            exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts'],
           }),
         ]
       : []),
@@ -30,7 +30,7 @@ export default defineConfig(({ command }) => ({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./src/test-setup.ts'],
+    setupFiles: ['./src/tests/test-setup.ts'],
     include: ['src/**/*.test.{ts,tsx}'],
   },
 }));

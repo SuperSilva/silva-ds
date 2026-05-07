@@ -10,18 +10,36 @@
     "build": "node scripts/nx-target.mjs build",
     "test": "node scripts/nx-target.mjs test",
     "lint": "node scripts/nx-target.mjs lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "storybook": "nx storybook @design-system/storybook",
-    "build-storybook": "nx build-storybook @design-system/storybook"
+    "build-storybook": "nx build-storybook @design-system/storybook",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,mjs,json,md}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
     "@nx/eslint": "^20.3.0",
     "@nx/vite": "^20.3.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
     "eslint": "^9.17.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.2",
     "nx": "^20.3.0",
+    "prettier": "^3.8.3",
     "typescript": "^5.7.0",
     "vite": "^5.4.0",
     "vitest": "^2.1.0"

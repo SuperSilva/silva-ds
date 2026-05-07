@@ -8,19 +8,13 @@ function packageAliases() {
   return Object.fromEntries(
     readdirSync(packagesDir)
       .filter((pkg) => existsSync(resolve(packagesDir, pkg, 'src/index.ts')))
-      .map((pkg) => [
-        `@design-system/${pkg}`,
-        resolve(packagesDir, pkg, 'src/index.ts'),
-      ]),
+      .map((pkg) => [`@design-system/${pkg}`, resolve(packagesDir, pkg, 'src/index.ts')]),
   );
 }
 
 const config: StorybookConfig = {
-  stories: ['../../../packages/*/src/**/*.stories.@(ts|tsx|mdx)'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-  ],
+  stories: ['../stories/**/*.stories.@(ts|tsx|mdx)'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
@@ -38,10 +32,7 @@ const config: StorybookConfig = {
         wyw({
           include: ['**/*.{ts,tsx}'],
           babelOptions: {
-            presets: [
-              '@babel/preset-typescript',
-              ['@babel/preset-react', { runtime: 'automatic' }],
-            ],
+            presets: ['@babel/preset-typescript', ['@babel/preset-react', { runtime: 'automatic' }]],
           },
         }),
       ],
