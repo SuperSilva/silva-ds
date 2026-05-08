@@ -1,38 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { DefaultDropdown, OutlineDropdown, Dropdown } from '@design-system/dropdown';
-import type { DropdownSize } from '@design-system/dropdown';
+import { LayerProvider } from '@design-system/layers';
+import type { DropdownOption, DropdownSize } from '@design-system/dropdown';
 
 const SIZES: DropdownSize[] = ['sm', 'md', 'lg'];
 
-const OPTIONS = [
+const OPTIONS: DropdownOption[] = [
   { value: 'design', label: 'Design' },
   { value: 'engineering', label: 'Engineering' },
   { value: 'product', label: 'Product' },
   { value: 'marketing', label: 'Marketing' },
+  { value: 'hr', label: 'Human Resources', disabled: true },
 ];
-
-const OptionsList = () => (
-  <>
-    <option value="">Select an option</option>
-    {OPTIONS.map(({ value, label }) => (
-      <option key={value} value={value}>
-        {label}
-      </option>
-    ))}
-  </>
-);
 
 const meta: Meta<typeof DefaultDropdown> = {
   title: 'Components/Dropdown',
   component: DefaultDropdown,
   tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <LayerProvider>
+        <Story />
+      </LayerProvider>
+    ),
+  ],
   parameters: {
     docs: {
       description: {
         component:
-          'Dropdown variants built on the native `<select>` element with a custom appearance. ' +
-          'Supports all standard `<select>` attributes.',
+          'Custom dropdown components built with a floating panel via React portals. ' +
+          'Supports keyboard navigation, controlled and uncontrolled modes, and disabled options.',
       },
     },
   },
@@ -43,26 +41,19 @@ const meta: Meta<typeof DefaultDropdown> = {
       table: { defaultValue: { summary: "'md'" } },
     },
     disabled: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
+    placeholder: { control: 'text' },
   },
-  args: { size: 'md', disabled: false },
+  args: { options: OPTIONS, size: 'md', disabled: false, placeholder: 'Select a department' },
 };
 
 export default meta;
 
 export const Default: StoryObj<typeof DefaultDropdown> = {
-  render: (args) => (
-    <DefaultDropdown {...args}>
-      <OptionsList />
-    </DefaultDropdown>
-  ),
+  render: (args) => <DefaultDropdown {...args} style={{ maxWidth: '260px' }} />,
 };
 
 export const Outline: StoryObj<typeof OutlineDropdown> = {
-  render: (args) => (
-    <OutlineDropdown {...args}>
-      <OptionsList />
-    </OutlineDropdown>
-  ),
+  render: (args) => <OutlineDropdown {...args} style={{ maxWidth: '260px' }} />,
 };
 
 export const AllVariants: StoryObj = {
@@ -78,9 +69,7 @@ export const AllVariants: StoryObj = {
           <span style={{ fontSize: '11px', color: '#71717a', display: 'block', marginBottom: '4px' }}>
             {label}
           </span>
-          <Component>
-            <OptionsList />
-          </Component>
+          <Component options={OPTIONS} placeholder="Select an option" />
         </div>
       ))}
     </div>
@@ -92,31 +81,44 @@ export const Sizes: StoryObj = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '260px' }}>
       {SIZES.map((size) => (
-        <DefaultDropdown key={size} size={size}>
-          <option value="">{`size="${size}"`}</option>
-          <OptionsList />
-        </DefaultDropdown>
+        <DefaultDropdown key={size} options={OPTIONS} size={size} placeholder={`size="${size}"`} />
       ))}
     </div>
   ),
 };
 
-export const DefaultAlias: StoryObj = {
-  name: 'Dropdown alias (Default)',
+export const Controlled: StoryObj = {
+  name: 'Controlled',
+  parameters: { controls: { disable: true } },
+  render: () => {
+    const [value, setValue] = useState('engineering');
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '260px' }}>
+        <DefaultDropdown options={OPTIONS} value={value} onChange={setValue} />
+        <span style={{ fontSize: '12px', color: '#71717a' }}>Selected: {value}</span>
+      </div>
+    );
+  },
+};
+
+export const WithDisabledOptions: StoryObj = {
+  name: 'With disabled options',
   parameters: { controls: { disable: true } },
   render: () => (
-    <Dropdown style={{ maxWidth: '260px' }}>
-      <OptionsList />
-    </Dropdown>
+    <DefaultDropdown options={OPTIONS} placeholder="Select a department" style={{ maxWidth: '260px' }} />
   ),
 };
 
 export const DisabledState: StoryObj<typeof DefaultDropdown> = {
   name: 'Disabled',
   args: { disabled: true },
-  render: (args) => (
-    <DefaultDropdown {...args} style={{ maxWidth: '260px' }}>
-      <OptionsList />
-    </DefaultDropdown>
+  render: (args) => <DefaultDropdown {...args} style={{ maxWidth: '260px' }} />,
+};
+
+export const DropdownAlias: StoryObj = {
+  name: 'Dropdown alias (Default)',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Dropdown options={OPTIONS} placeholder="Dropdown = DefaultDropdown" style={{ maxWidth: '260px' }} />
   ),
 };

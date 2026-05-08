@@ -1,12 +1,10 @@
-export {
-  TextInput,
-  EmailInput,
-  PasswordInput,
-  NumberInput,
-  SearchInput,
-  Textarea,
-  Checkbox,
-  Radio,
-  Input,
-} from './Input';
-export type { InputSize, InputProps, TextareaProps, CheckboxProps, RadioProps } from './Input';
+export { TextInput } from './TextInput';
+export { EmailInput } from './EmailInput';
+export { PasswordInput } from './PasswordInput';
+export { NumberInput } from './NumberInput';
+export { SearchInput } from './SearchInput';
+export { Textarea } from './Textarea';
+export { Checkbox } from './Checkbox';
+export { Radio } from './Radio';
+export { TextInput as Input } from './TextInput';
+export type { InputSize, InputProps, TextareaProps, CheckboxProps, RadioProps } from './Input.styles';

@@ -2,8 +2,6 @@ import { styled } from '@linaria/react';
 import { css } from '@linaria/core';
 import { tokens } from '@design-system/theme';
 
-// ─── List roots ───────────────────────────────────────────────────────────────
-
 export const UnorderedListRoot = styled.ul`
   margin: 0;
   padding: 0;
@@ -47,18 +45,6 @@ export const nestedListStyle = css`
   margin-bottom: 0;
 `;
 
-// ─── ListItem ─────────────────────────────────────────────────────────────────
-
-export const ListItem = styled.li`
-  margin: 0;
-  padding: 0;
-  font-size: ${tokens.fontSize.md};
-  line-height: ${tokens.lineHeight.normal};
-  color: ${tokens.color.textDefault};
-`;
-
-// ─── ListItemRow ──────────────────────────────────────────────────────────────
-
 export const ListItemRowRoot = styled.div`
   display: flex;
   gap: ${tokens.space[3]};
@@ -77,8 +63,6 @@ export const listItemRowAligns = {
   `,
 } as const;
 
-// ─── ListItemIcon ─────────────────────────────────────────────────────────────
-
 export const ListItemIconRoot = styled.span`
   display: flex;
   align-items: center;
@@ -88,8 +72,6 @@ export const ListItemIconRoot = styled.span`
   font-size: ${tokens.fontSize.lg};
   line-height: 1;
 `;
-
-// ─── ListItemImage ────────────────────────────────────────────────────────────
 
 export const ListItemImageRoot = styled.img`
   display: block;
@@ -112,30 +94,3 @@ export const listItemImageSizes = {
     height: 56px;
   `,
 } as const;
-
-// ─── ListItemContent ──────────────────────────────────────────────────────────
-
-export const ListItemContent = styled.div`
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-`;
-
-// ─── ListItemLabel ────────────────────────────────────────────────────────────
-
-export const ListItemLabel = styled.span`
-  font-size: ${tokens.fontSize.md};
-  font-weight: ${tokens.fontWeight.medium};
-  color: ${tokens.color.textDefault};
-  line-height: ${tokens.lineHeight.tight};
-`;
-
-// ─── ListItemSupportText ──────────────────────────────────────────────────────
-
-export const ListItemSupportText = styled.span`
-  font-size: ${tokens.fontSize.sm};
-  color: ${tokens.color.textSubtle};
-  line-height: ${tokens.lineHeight.normal};
-`;

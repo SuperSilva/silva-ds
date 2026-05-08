@@ -1,5 +1,22 @@
-export { Text, TextXs, TextSm, TextMd, TextLg, TextXl } from './Text';
-export type { TextProps, TextWeight, TextColor, TextAs } from './Text';
+export { Footnote } from './Footnote';
+export type { FootnoteProps } from './Footnote';
 
-export { Heading, H1, H2, H3, H4, H5, H6 } from './Heading';
-export type { HeadingProps, HeadingSize, HeadingWeight, HeadingColor } from './Heading';
+export { Caption } from './Caption';
+export type { CaptionProps } from './Caption';
+
+export { Body } from './Body';
+export type { BodyProps } from './Body';
+
+export { BodyBold } from './BodyBold';
+export type { BodyBoldProps } from './BodyBold';
+
+export { Lead } from './Lead';
+export type { LeadProps } from './Lead';
+
+export { Heading } from './Heading';
+export type { HeadingProps } from './Heading';
+
+export { Display } from './Display';
+export type { DisplayProps } from './Display';
+
+export type { TextColor, TextWeight, TextAs, HeadingAs } from './Typography.styles';

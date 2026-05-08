@@ -12,10 +12,8 @@ import {
   ListItemContent,
   ListItemLabel,
   ListItemSupportText,
-} from '../List';
-import type { ListGap } from '../List';
-
-// ─── List variants ────────────────────────────────────────────────────────────
+} from '..';
+import type { ListGap } from '../UnorderedList';
 
 describe('UnorderedList', () => {
   it('renders children', () => {
@@ -84,8 +82,6 @@ describe('List alias', () => {
   });
 });
 
-// ─── ListItem ─────────────────────────────────────────────────────────────────
-
 describe('ListItem', () => {
   it('renders children', () => {
     render(
@@ -105,8 +101,6 @@ describe('ListItem', () => {
     expect(screen.getByText('Item')).toHaveClass('custom');
   });
 });
-
-// ─── Compound sub-components ──────────────────────────────────────────────────
 
 describe('ListItemRow', () => {
   it('renders children in a div', () => {

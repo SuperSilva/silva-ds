@@ -12,7 +12,7 @@ import {
   Checkbox,
   Radio,
   Input,
-} from '../Input';
+} from '..';
 
 describe('TextInput', () => {
   it('renders a text input', () => {

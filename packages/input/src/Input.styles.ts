@@ -1,6 +1,7 @@
 import { styled } from '@linaria/react';
 import { css } from '@linaria/core';
 import { tokens } from '@design-system/theme';
+import type React from 'react';
 
 export const InputRoot = styled.input`
   display: block;
@@ -153,3 +154,16 @@ export const textareaSizes = {
     font-size: ${tokens.fontSize.lg};
   `,
 } as const;
+
+export type InputSize = 'sm' | 'md' | 'lg';
+
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  size?: InputSize;
+}
+
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  size?: InputSize;
+}
+
+export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement>;
+export type RadioProps = React.InputHTMLAttributes<HTMLInputElement>;

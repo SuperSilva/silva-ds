@@ -2,14 +2,14 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
-  IconButton,
   PrimaryIconButton,
   SecondaryIconButton,
   OutlineIconButton,
   GhostIconButton,
   DestructiveIconButton,
-} from '../IconButton';
-import type { IconButtonSize } from '../IconButton';
+  IconButton,
+} from '..';
+import type { IconButtonSize } from '../IconButton.styles';
 
 const icon = <svg aria-hidden="true" data-testid="icon" />;
 

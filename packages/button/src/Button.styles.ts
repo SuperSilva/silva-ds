@@ -1,8 +1,9 @@
 import { styled } from '@linaria/react';
 import { css } from '@linaria/core';
 import { tokens } from '@design-system/theme';
+import type React from 'react';
 
-const ButtonRoot = styled.button`
+export const ButtonRoot = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,62 +28,6 @@ const ButtonRoot = styled.button`
   }
 `;
 
-export const PrimaryButtonRoot = styled(ButtonRoot)`
-  background-color: ${tokens.color.primary};
-  color: ${tokens.color.primaryFg};
-  &:hover {
-    background-color: ${tokens.color.primaryHover};
-  }
-  &:active {
-    background-color: ${tokens.color.primaryActive};
-  }
-`;
-
-export const SecondaryButtonRoot = styled(ButtonRoot)`
-  background-color: ${tokens.color.secondary};
-  color: ${tokens.color.secondaryFg};
-  &:hover {
-    background-color: ${tokens.color.secondaryHover};
-  }
-  &:active {
-    background-color: ${tokens.color.secondaryActive};
-  }
-`;
-
-export const OutlineButtonRoot = styled(ButtonRoot)`
-  background-color: transparent;
-  color: ${tokens.color.accent};
-  border-color: ${tokens.color.accent};
-  &:hover {
-    background-color: ${tokens.color.accentBgHover};
-  }
-  &:active {
-    background-color: ${tokens.color.accentBgActive};
-  }
-`;
-
-export const GhostButtonRoot = styled(ButtonRoot)`
-  background-color: transparent;
-  color: ${tokens.color.neutralFg};
-  &:hover {
-    background-color: ${tokens.color.neutralBgHover};
-  }
-  &:active {
-    background-color: ${tokens.color.neutralBgActive};
-  }
-`;
-
-export const DestructiveButtonRoot = styled(ButtonRoot)`
-  background-color: ${tokens.color.destructive};
-  color: ${tokens.color.destructiveFg};
-  &:hover {
-    background-color: ${tokens.color.destructiveHover};
-  }
-  &:active {
-    background-color: ${tokens.color.destructiveActive};
-  }
-`;
-
 export const sizes = {
   sm: css`
     height: ${tokens.button.heightSm};
@@ -100,3 +45,9 @@ export const sizes = {
     font-size: ${tokens.fontSize.lg};
   `,
 } as const;
+
+export type ButtonSize = keyof typeof sizes;
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  size?: ButtonSize;
+}

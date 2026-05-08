@@ -1,9 +1,7 @@
-export {
-  Button,
-  PrimaryButton,
-  SecondaryButton,
-  OutlineButton,
-  GhostButton,
-  DestructiveButton,
-} from './Button';
-export type { ButtonProps, ButtonSize } from './Button';
+export { PrimaryButton } from './PrimaryButton';
+export { SecondaryButton } from './SecondaryButton';
+export { OutlineButton } from './OutlineButton';
+export { GhostButton } from './GhostButton';
+export { DestructiveButton } from './DestructiveButton';
+export { PrimaryButton as Button } from './PrimaryButton';
+export type { ButtonProps, ButtonSize } from './Button.styles';

@@ -1,30 +1,10 @@
-import { styled } from '@linaria/react';
 import { css } from '@linaria/core';
 import { tokens } from '@design-system/theme';
 
-// ─── Text ─────────────────────────────────────────────────────────────────────
-
-const TextBase = styled.p`
-  margin: 0;
-  font-family: inherit;
-  line-height: ${tokens.lineHeight.normal};
-`;
-
-export const TextXsRoot = styled(TextBase)`
-  font-size: ${tokens.fontSize.xs};
-`;
-export const TextSmRoot = styled(TextBase)`
-  font-size: ${tokens.fontSize.sm};
-`;
-export const TextMdRoot = styled(TextBase)`
-  font-size: ${tokens.fontSize.md};
-`;
-export const TextLgRoot = styled(TextBase)`
-  font-size: ${tokens.fontSize.lg};
-`;
-export const TextXlRoot = styled(TextBase)`
-  font-size: ${tokens.fontSize.xl};
-`;
+export type TextColor = 'default' | 'subtle' | 'disabled';
+export type TextWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+export type TextAs = 'p' | 'span' | 'div' | 'strong' | 'em';
+export type HeadingAs = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'div' | 'span';
 
 export const textWeights = {
   regular: css`
@@ -58,32 +38,3 @@ export const truncateStyle = css`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-
-// ─── Heading ──────────────────────────────────────────────────────────────────
-
-export const HeadingRoot = styled.h1`
-  margin: 0;
-  font-family: inherit;
-  line-height: ${tokens.lineHeight.tight};
-`;
-
-export const headingSizes = {
-  sm: css`
-    font-size: ${tokens.fontSize.sm};
-  `,
-  md: css`
-    font-size: ${tokens.fontSize.md};
-  `,
-  lg: css`
-    font-size: ${tokens.fontSize.lg};
-  `,
-  xl: css`
-    font-size: ${tokens.fontSize.xl};
-  `,
-  '2xl': css`
-    font-size: ${tokens.fontSize['2xl']};
-  `,
-  '3xl': css`
-    font-size: ${tokens.fontSize['3xl']};
-  `,
-} as const;

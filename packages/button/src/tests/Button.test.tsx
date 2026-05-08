@@ -1,15 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  Button,
-  PrimaryButton,
-  SecondaryButton,
-  OutlineButton,
-  GhostButton,
-  DestructiveButton,
-} from '../Button';
-import type { ButtonSize } from '../Button';
+import { PrimaryButton, SecondaryButton, OutlineButton, GhostButton, DestructiveButton, Button } from '..';
+import type { ButtonSize } from '../Button.styles';
 
 const VARIANTS = [
   { Component: PrimaryButton, name: 'PrimaryButton' },

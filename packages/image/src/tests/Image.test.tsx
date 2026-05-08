@@ -1,6 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Image, RoundedSmImage, RoundedImage, RoundedLgImage, CircularImage } from '../Image';
+import { Image } from '../Image';
+import { RoundedSmImage } from '../RoundedSmImage';
+import { RoundedImage } from '../RoundedImage';
+import { RoundedLgImage } from '../RoundedLgImage';
+import { CircularImage } from '../CircularImage';
 
 const VARIANTS = [
   { Component: Image, name: 'Image' },

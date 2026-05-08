@@ -1,23 +1,26 @@
-export { List, UnorderedList, OrderedList, UnstyledList } from './List';
-export type { ListProps, ListGap } from './List';
+export { UnorderedList } from './UnorderedList';
+export { OrderedList } from './OrderedList';
+export { UnstyledList } from './UnstyledList';
+export { UnorderedList as List } from './UnorderedList';
+export type { ListProps, ListGap } from './UnorderedList';
 
-export { ListItem } from './List';
-export type { ListItemProps } from './List';
+export { ListItem } from './ListItem';
+export type { ListItemProps } from './ListItem';
 
-export { ListItemRow } from './List';
-export type { ListItemRowProps, ListItemRowAlign } from './List';
+export { ListItemRow } from './ListItemRow';
+export type { ListItemRowProps, ListItemRowAlign } from './ListItemRow';
 
-export { ListItemIcon } from './List';
-export type { ListItemIconProps } from './List';
+export { ListItemIcon } from './ListItemIcon';
+export type { ListItemIconProps } from './ListItemIcon';
 
-export { ListItemImage } from './List';
-export type { ListItemImageProps, ListItemImageSize } from './List';
+export { ListItemImage } from './ListItemImage';
+export type { ListItemImageProps, ListItemImageSize } from './ListItemImage';
 
-export { ListItemContent } from './List';
-export type { ListItemContentProps } from './List';
+export { ListItemContent } from './ListItemContent';
+export type { ListItemContentProps } from './ListItemContent';
 
-export { ListItemLabel } from './List';
-export type { ListItemLabelProps } from './List';
+export { ListItemLabel } from './ListItemLabel';
+export type { ListItemLabelProps } from './ListItemLabel';
 
-export { ListItemSupportText } from './List';
-export type { ListItemSupportTextProps } from './List';
+export { ListItemSupportText } from './ListItemSupportText';
+export type { ListItemSupportTextProps } from './ListItemSupportText';

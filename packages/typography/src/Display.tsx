@@ -5,34 +5,34 @@ import { tokens } from '@design-system/theme';
 import { textColors, truncateStyle } from './Typography.styles';
 import type { HeadingAs, TextColor } from './Typography.styles';
 
-const HeadingRoot = styled.h2`
+const DisplayRoot = styled.h1`
   margin: 0;
   font-family: inherit;
   line-height: ${tokens.lineHeight.tight};
-  font-size: ${tokens.fontSize.xl};
+  font-size: ${tokens.fontSize['2xl']};
   font-weight: ${tokens.fontWeight.bold};
 `;
 
-export interface HeadingProps extends React.HTMLAttributes<HTMLElement> {
+export interface DisplayProps extends React.HTMLAttributes<HTMLElement> {
   as?: HeadingAs;
   color?: TextColor;
   truncate?: boolean;
 }
 
-export const Heading: React.FC<HeadingProps> = ({
-  as: Tag = 'h2',
+export const Display: React.FC<DisplayProps> = ({
+  as: Tag = 'h1',
   color = 'default',
   truncate = false,
   className,
   children,
   ...props
 }) => (
-  <HeadingRoot
+  <DisplayRoot
     as={Tag as React.ElementType}
     className={cx(textColors[color], truncate && truncateStyle, className)}
     {...props}
   >
     {children}
-  </HeadingRoot>
+  </DisplayRoot>
 );
-Heading.displayName = 'Heading';
+Display.displayName = 'Display';
