@@ -1,3 +1,3 @@
-export { tokens } from './tokens';
+export { tokens, breakpoints } from './tokens';
 export { defaultTheme, type Theme } from './defaults';
 export { ThemeProvider, type ThemeProviderProps } from './ThemeProvider';
