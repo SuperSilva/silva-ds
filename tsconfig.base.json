@@ -23,7 +23,12 @@
       "@design-system/image": ["packages/image/src/index.ts"],
       "@design-system/list": ["packages/list/src/index.ts"],
       "@design-system/theme": ["packages/theme/src/index.ts"],
-      "@design-system/typography": ["packages/typography/src/index.ts"]
+      "@design-system/typography": ["packages/typography/src/index.ts"],
+      "@design-system/tabs": ["packages/tabs/src/index.ts"],
+      "@design-system/accordion": ["packages/accordion/src/index.ts"],
+      "@design-system/label": ["packages/label/src/index.ts"],
+      "@design-system/link": ["packages/link/src/index.ts"],
+      "@design-system/product-card": ["packages/product-card/src/index.ts"]
     }
   }
 }
