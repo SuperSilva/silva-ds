@@ -16,6 +16,7 @@ export interface DropdownOption {
   value: string;
   label: string;
   disabled?: boolean;
+  hint?: React.ReactNode;
 }
 
 export interface DropdownProps {
@@ -270,7 +271,15 @@ const DropdownBase = forwardRef<HTMLButtonElement, DropdownBaseProps>(function D
                     selectOption(option);
                   }}
                 >
-                  {option.label}
+                  <span style={{ flex: 1 }}>{option.label}</span>
+                  {option.hint && (
+                    <span
+                      onMouseDown={(e) => e.stopPropagation()}
+                      style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}
+                    >
+                      {option.hint}
+                    </span>
+                  )}
                 </DropdownOptionRoot>
               ))}
             </DropdownPanelRoot>

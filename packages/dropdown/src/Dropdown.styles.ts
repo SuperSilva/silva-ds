@@ -69,6 +69,7 @@ export const DropdownPanelRoot = styled.div`
 export const DropdownOptionRoot = styled.div`
   display: flex;
   align-items: center;
+  gap: ${tokens.space[2]};
   cursor: pointer;
   transition: background-color 100ms ease;
   color: ${tokens.color.textDefault};

@@ -28,7 +28,8 @@
       "@design-system/accordion": ["packages/accordion/src/index.ts"],
       "@design-system/label": ["packages/label/src/index.ts"],
       "@design-system/link": ["packages/link/src/index.ts"],
-      "@design-system/product-card": ["packages/product-card/src/index.ts"]
+      "@design-system/product-card": ["packages/product-card/src/index.ts"],
+      "@design-system/tooltip": ["packages/tooltip/src/index.ts"]
     }
   }
 }

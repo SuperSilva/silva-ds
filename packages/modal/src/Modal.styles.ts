@@ -7,7 +7,6 @@ export const ModalOverlayRoot = styled.div`
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
   pointer-events: auto;
-  z-index: 1;
 `;
 
 export const ModalRoot = styled.div`
@@ -24,7 +23,6 @@ export const ModalRoot = styled.div`
   flex-direction: column;
   max-height: calc(100vh - 48px);
   overflow-y: auto;
-  z-index: 2;
 `;
 
 export const modalSizes = {
