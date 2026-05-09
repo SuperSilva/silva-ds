@@ -25,10 +25,7 @@ export default defineConfig(({ command }) => ({
       : []),
   ],
   resolve: {
-    alias: {
-      '@design-system/layers': resolve(__dirname, '../layers/src/index.ts'),
-      '@design-system/theme': resolve(__dirname, '../theme/src/index.ts'),
-    },
+    alias: [{ find: /^@design-system\/(.+)$/, replacement: `${resolve(__dirname, '..')}/$1/src/index.ts` }],
   },
   build: {
     lib: {

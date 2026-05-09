@@ -18,17 +18,14 @@ export default defineConfig(({ command }) => ({
       ? [
           dts({
             include: ['src'],
-            exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts'],
+            exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
             skipDiagnostics: true,
           }),
         ]
       : []),
   ],
   resolve: {
-    alias: {
-      '@design-system/layers': resolve(__dirname, '../layers/src/index.ts'),
-      '@design-system/theme': resolve(__dirname, '../theme/src/index.ts'),
-    },
+    alias: [{ find: /^@design-system\/(.+)$/, replacement: `${resolve(__dirname, '..')}/$1/src/index.ts` }],
   },
   build: {
     lib: {
@@ -50,7 +47,7 @@ export default defineConfig(({ command }) => ({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts'],
+      exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
     },
   },
 }));
