@@ -13,20 +13,29 @@ const SIZES: Record<IconSize, number> = {
   xl: 32,
 };
 
-export interface IconProps {
+type OwnedSVGProps =
+  | 'width'
+  | 'height'
+  | 'viewBox'
+  | 'fill'
+  | 'stroke'
+  | 'strokeWidth'
+  | 'strokeLinecap'
+  | 'strokeLinejoin'
+  | 'focusable';
+
+export interface IconProps extends Omit<React.SVGAttributes<SVGSVGElement>, OwnedSVGProps | 'aria-hidden'> {
   /** Name of the icon to render. All built-in names are type-checked; custom icon
    *  names added via <IconProvider icons={...}> are also accepted as strings. */
   name: DefaultIconName | (string & {});
   size?: IconSize | number;
-  className?: string;
-  style?: React.CSSProperties;
   /** Provide a label to make the icon meaningful to screen readers. */
   'aria-label'?: string;
   'aria-hidden'?: boolean | 'true' | 'false';
 }
 
 export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
-  { name, size = 'md', className, style, 'aria-label': ariaLabel, 'aria-hidden': ariaHidden },
+  { name, size = 'md', className, style, 'aria-label': ariaLabel, 'aria-hidden': ariaHidden, ...rest },
   ref,
 ) {
   const ctx = useIconContext();
@@ -35,6 +44,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
 
   const svgProps = {
     ref,
+    ...rest,
     width: resolvedSize,
     height: resolvedSize,
     fill: 'none' as const,
@@ -50,8 +60,6 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   };
 
   if (ctx) {
-    // Sprite mode: reference the symbol defined by <IconProvider>.
-    // The SVG path data lives once in the DOM; every <Icon> is a lightweight <use>.
     return (
       <svg {...svgProps}>
         <use href={`#${ctx.prefix}-${name}`} />
@@ -59,7 +67,6 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
     );
   }
 
-  // Inline fallback when no <IconProvider> is in the tree.
   const def = defaultIcons[name as DefaultIconName];
   if (!def) return null;
 

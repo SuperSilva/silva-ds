@@ -1,31 +1,12 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { LayerProvider } from '@design-system/layers';
+import { Icon } from '@design-system/icons';
 import { Tooltip } from '@design-system/tooltip';
 import { DefaultDropdown, OutlineDropdown } from '@design-system/dropdown';
 import { Modal, ModalOverlay } from '@design-system/modal';
 import { NeutralLabel, SuccessLabel, InfoLabel } from '@design-system/label';
 import type { DropdownOption } from '@design-system/dropdown';
-
-function InfoIcon() {
-  return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="8" cy="8" r="7" />
-      <line x1="8" y1="7" x2="8" y2="11" />
-      <circle cx="8" cy="4.5" r="0.6" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
 
 const meta: Meta = {
   title: 'Layers/All Layers',
@@ -48,7 +29,7 @@ const TEAM_OPTIONS: DropdownOption[] = [
     hint: (
       <Tooltip content="Includes frontend and backend engineers" placement="right" delay={0}>
         <span style={{ display: 'inline-flex', alignItems: 'center', color: '#a1a1aa' }}>
-          <InfoIcon />
+          <Icon name="info" size={13} />
         </span>
       </Tooltip>
     ),

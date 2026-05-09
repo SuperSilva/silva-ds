@@ -3,14 +3,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { LayerProvider } from '@design-system/layers';
-import { Modal, ModalOverlay } from '../Modal';
+import { Modal, ModalOverlay, useModal } from '../Modal';
 
 function Wrapper({ children }: { children: React.ReactNode }) {
   return <LayerProvider>{children}</LayerProvider>;
 }
 
 describe('Modal', () => {
-  it('renders children', () => {
+  it('renders children when open', () => {
     render(
       <Modal>
         <p>Modal content</p>
@@ -28,13 +28,21 @@ describe('Modal', () => {
 
   it('closes on Escape key', async () => {
     const user = userEvent.setup();
+    const onOpenChange = vi.fn();
+    render(<Modal onOpenChange={onOpenChange}>content</Modal>, { wrapper: Wrapper });
+    await user.keyboard('{Escape}');
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
+  it('calls onClose (legacy) when Escape is pressed', async () => {
+    const user = userEvent.setup();
     const onClose = vi.fn();
     render(<Modal onClose={onClose}>content</Modal>, { wrapper: Wrapper });
     await user.keyboard('{Escape}');
     expect(onClose).toHaveBeenCalledOnce();
   });
 
-  it('does not throw without onClose when Escape is pressed', async () => {
+  it('does not throw without onClose/onOpenChange when Escape is pressed', async () => {
     const user = userEvent.setup();
     render(<Modal>content</Modal>, { wrapper: Wrapper });
     await expect(user.keyboard('{Escape}')).resolves.not.toThrow();
@@ -57,10 +65,38 @@ describe('Modal', () => {
     expect(screen.getByRole('dialog')).toHaveAttribute('aria-labelledby', 'title');
   });
 
-  // Focus tests run without LayerProvider to avoid the two-stage portal mount
-  // (LayerProvider first renders to body, then moves to the layer container,
-  // which remounts the portal and can disrupt focus in jsdom).
+  it('renders trigger and is initially closed', () => {
+    render(
+      <Modal trigger={<button>Open</button>}>
+        <p>content</p>
+      </Modal>,
+      { wrapper: Wrapper },
+    );
+    expect(screen.getByRole('button', { name: 'Open' })).toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
 
+  it('opens when trigger is clicked', async () => {
+    const user = userEvent.setup();
+    render(
+      <Modal trigger={<button>Open</button>}>
+        <p>content</p>
+      </Modal>,
+      { wrapper: Wrapper },
+    );
+    await user.click(screen.getByRole('button', { name: 'Open' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('controlled: respects open prop', () => {
+    render(<Modal open={false}>content</Modal>, { wrapper: Wrapper });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+
+    render(<Modal open={true}>content</Modal>, { wrapper: Wrapper });
+    expect(screen.getAllByRole('dialog')[0]).toBeInTheDocument();
+  });
+
+  // Focus tests run without LayerProvider to avoid the two-stage portal mount
   it('focuses initialFocusRef element on open', () => {
     function TestModal() {
       const btnRef = useRef<HTMLButtonElement>(null);
@@ -107,6 +143,24 @@ describe('Modal', () => {
     buttons[0].focus();
     await user.tab({ shift: true });
     expect(buttons[1]).toHaveFocus();
+  });
+
+  it('useModal close() closes the modal', async () => {
+    const user = userEvent.setup();
+    function CloseButton() {
+      const { close } = useModal();
+      return <button onClick={close}>Close</button>;
+    }
+    render(
+      <Modal trigger={<button>Open</button>}>
+        <CloseButton />
+      </Modal>,
+      { wrapper: Wrapper },
+    );
+    await user.click(screen.getByRole('button', { name: 'Open' }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Close' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });
 

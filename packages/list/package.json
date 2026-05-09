@@ -13,7 +13,9 @@
     }
   },
   "peerDependencies": {
+    "@design-system/image": "^0.0.1",
     "@design-system/theme": "^0.0.1",
+    "@design-system/typography": "^0.0.1",
     "react": ">=17.0.0",
     "react-dom": ">=17.0.0"
   },
@@ -21,7 +23,9 @@
     "@babel/core": "^7.24.0",
     "@babel/preset-react": "^7.24.0",
     "@babel/preset-typescript": "^7.24.0",
+    "@design-system/image": "workspace:*",
     "@design-system/theme": "workspace:*",
+    "@design-system/typography": "workspace:*",
     "@linaria/core": "^6.3.0",
     "@linaria/react": "^6.3.0",
     "@testing-library/dom": "^10.0.0",

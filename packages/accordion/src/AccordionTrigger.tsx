@@ -1,18 +1,7 @@
 import React from 'react';
+import { Icon } from '@design-system/icons';
 import { AccordionTriggerRoot, AccordionChevronRoot } from './Accordion.styles';
 import { useAccordionItemContext } from './AccordionItem';
-
-const ChevronIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M4 6l4 4 4-4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export type AccordionTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -33,7 +22,7 @@ export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({ children, on
     >
       {children}
       <AccordionChevronRoot data-open={String(isOpen)}>
-        <ChevronIcon />
+        <Icon name="chevron-down" size="sm" />
       </AccordionChevronRoot>
     </AccordionTriggerRoot>
   );

@@ -13,52 +13,7 @@ import {
   ListItemSupportText,
 } from '@design-system/list';
 import type { ListGap } from '@design-system/list';
-
-const FileIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M4 2h6l3 3v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"
-      stroke="currentColor"
-      strokeWidth="1.25"
-      strokeLinejoin="round"
-    />
-    <path d="M10 2v3h3" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-  </svg>
-);
-
-const FolderIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M2 4a1 1 0 0 1 1-1h3l2 2h5a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4z"
-      stroke="currentColor"
-      strokeWidth="1.25"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const StarIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M8 2l1.8 3.6L14 6.4l-3 2.9.7 4.1L8 11.4l-3.7 2 .7-4.1-3-2.9 4.2-.8L8 2z"
-      stroke="currentColor"
-      strokeWidth="1.25"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const ChevronRightIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M6 4l4 4-4 4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+import { Icon } from '@design-system/icons';
 
 const meta: Meta<typeof UnorderedList> = {
   title: 'Components/List',
@@ -162,7 +117,7 @@ export const WithIcons: StoryObj<typeof UnstyledList> = {
       <ListItem>
         <ListItemRow>
           <ListItemIcon>
-            <FolderIcon />
+            <Icon name="folder" />
           </ListItemIcon>
           <ListItemContent>
             <ListItemLabel>Design System</ListItemLabel>
@@ -173,7 +128,7 @@ export const WithIcons: StoryObj<typeof UnstyledList> = {
       <ListItem>
         <ListItemRow>
           <ListItemIcon>
-            <FileIcon />
+            <Icon name="file" />
           </ListItemIcon>
           <ListItemContent>
             <ListItemLabel>tokens.ts</ListItemLabel>
@@ -184,7 +139,7 @@ export const WithIcons: StoryObj<typeof UnstyledList> = {
       <ListItem>
         <ListItemRow>
           <ListItemIcon>
-            <FileIcon />
+            <Icon name="file" />
           </ListItemIcon>
           <ListItemContent>
             <ListItemLabel>Button.tsx</ListItemLabel>
@@ -213,7 +168,7 @@ export const WithImages: StoryObj<typeof UnstyledList> = {
               <ListItemSupportText>{role}</ListItemSupportText>
             </ListItemContent>
             <ListItemIcon>
-              <ChevronRightIcon />
+              <Icon name="chevron-right" />
             </ListItemIcon>
           </ListItemRow>
         </ListItem>
@@ -231,14 +186,14 @@ export const WithIconsAndTrailingSlot: StoryObj<typeof UnstyledList> = {
         <ListItem key={label}>
           <ListItemRow>
             <ListItemIcon>
-              <StarIcon />
+              <Icon name="star" />
             </ListItemIcon>
             <ListItemContent>
               <ListItemLabel>{label}</ListItemLabel>
               <ListItemSupportText>Step {i + 1} of 3</ListItemSupportText>
             </ListItemContent>
             <ListItemIcon>
-              <ChevronRightIcon />
+              <Icon name="chevron-right" />
             </ListItemIcon>
           </ListItemRow>
         </ListItem>
@@ -255,7 +210,7 @@ export const TopAlignedRows: StoryObj<typeof UnstyledList> = {
       <ListItem>
         <ListItemRow align="start">
           <ListItemIcon>
-            <FileIcon />
+            <Icon name="file" />
           </ListItemIcon>
           <ListItemContent>
             <ListItemLabel>Multi-line content</ListItemLabel>
@@ -269,7 +224,7 @@ export const TopAlignedRows: StoryObj<typeof UnstyledList> = {
       <ListItem>
         <ListItemRow align="start">
           <ListItemIcon>
-            <FolderIcon />
+            <Icon name="folder" />
           </ListItemIcon>
           <ListItemContent>
             <ListItemLabel>Another item</ListItemLabel>
@@ -326,7 +281,7 @@ export const Gaps: StoryObj<typeof UnstyledList> = {
               <ListItem key={label}>
                 <ListItemRow>
                   <ListItemIcon>
-                    <FileIcon />
+                    <Icon name="file" />
                   </ListItemIcon>
                   <ListItemLabel>{label}</ListItemLabel>
                 </ListItemRow>

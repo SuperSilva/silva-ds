@@ -1,11 +1,10 @@
-import { styled } from '@linaria/react';
-import { tokens } from '@design-system/theme';
+import React from 'react';
+import { Caption } from '@design-system/typography';
+import type { CaptionProps } from '@design-system/typography';
 
-export type ListItemSupportTextProps = React.HTMLAttributes<HTMLSpanElement>;
+export type ListItemSupportTextProps = CaptionProps;
 
-export const ListItemSupportText = styled.span`
-  font-size: ${tokens.fontSize.sm};
-  color: ${tokens.color.textSubtle};
-  line-height: ${tokens.lineHeight.normal};
-`;
+export const ListItemSupportText: React.FC<ListItemSupportTextProps> = (props) => (
+  <Caption as="span" color="subtle" {...props} />
+);
 ListItemSupportText.displayName = 'ListItemSupportText';

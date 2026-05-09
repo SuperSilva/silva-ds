@@ -9,37 +9,7 @@ import {
   DestructiveIconButton,
 } from '@design-system/icon-button';
 import type { IconButtonSize } from '@design-system/icon-button';
-
-const SearchIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-    <path d="M10.5 10.5L13.5 13.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const CloseIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const PlusIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-const TrashIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-    <path
-      d="M3 4h10M6 4V2h4v2M5 4l.5 9h5L11 4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+import { Icon } from '@design-system/icons';
 
 const meta: Meta<typeof GhostIconButton> = {
   title: 'Components/IconButton',
@@ -68,7 +38,7 @@ const meta: Meta<typeof GhostIconButton> = {
   },
   args: {
     'aria-label': 'Search',
-    icon: <SearchIcon />,
+    icon: <Icon name="search" />,
     size: 'md',
   },
 };
@@ -92,7 +62,7 @@ export const Outline: StoryObj<typeof OutlineIconButton> = {
 };
 
 export const Destructive: StoryObj<typeof DestructiveIconButton> = {
-  args: { 'aria-label': 'Delete', icon: <TrashIcon /> },
+  args: { 'aria-label': 'Delete', icon: <Icon name="trash" /> },
   render: (args) => <DestructiveIconButton {...args} />,
 };
 
@@ -105,11 +75,11 @@ export const AllVariants: StoryObj<typeof GhostIconButton> = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-      <PrimaryIconButton aria-label="Primary" icon={<SearchIcon />} />
-      <SecondaryIconButton aria-label="Secondary" icon={<SearchIcon />} />
-      <OutlineIconButton aria-label="Outline" icon={<SearchIcon />} />
-      <GhostIconButton aria-label="Ghost" icon={<SearchIcon />} />
-      <DestructiveIconButton aria-label="Destructive" icon={<TrashIcon />} />
+      <PrimaryIconButton aria-label="Primary" icon={<Icon name="search" />} />
+      <SecondaryIconButton aria-label="Secondary" icon={<Icon name="search" />} />
+      <OutlineIconButton aria-label="Outline" icon={<Icon name="search" />} />
+      <GhostIconButton aria-label="Ghost" icon={<Icon name="search" />} />
+      <DestructiveIconButton aria-label="Destructive" icon={<Icon name="trash" />} />
     </div>
   ),
 };
@@ -119,7 +89,7 @@ export const Sizes: StoryObj<typeof GhostIconButton> = {
   render: () => (
     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
       {(['sm', 'md', 'lg'] as IconButtonSize[]).map((size) => (
-        <GhostIconButton key={size} aria-label={`size ${size}`} size={size} icon={<PlusIcon />} />
+        <GhostIconButton key={size} aria-label={`size ${size}`} size={size} icon={<Icon name="plus" />} />
       ))}
     </div>
   ),
@@ -129,10 +99,10 @@ export const IconShowcase: StoryObj<typeof GhostIconButton> = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: 'flex', gap: '8px' }}>
-      <GhostIconButton aria-label="Search" icon={<SearchIcon />} />
-      <GhostIconButton aria-label="Close" icon={<CloseIcon />} />
-      <GhostIconButton aria-label="Add" icon={<PlusIcon />} />
-      <DestructiveIconButton aria-label="Delete" icon={<TrashIcon />} />
+      <GhostIconButton aria-label="Search" icon={<Icon name="search" />} />
+      <GhostIconButton aria-label="Close" icon={<Icon name="x" />} />
+      <GhostIconButton aria-label="Add" icon={<Icon name="plus" />} />
+      <DestructiveIconButton aria-label="Delete" icon={<Icon name="trash" />} />
     </div>
   ),
 };
@@ -140,5 +110,5 @@ export const IconShowcase: StoryObj<typeof GhostIconButton> = {
 export const DefaultAlias: StoryObj<typeof GhostIconButton> = {
   name: 'IconButton alias (Ghost)',
   parameters: { controls: { disable: true } },
-  render: () => <IconButton aria-label="Search" icon={<SearchIcon />} />,
+  render: () => <IconButton aria-label="Search" icon={<Icon name="search" />} />,
 };

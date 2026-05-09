@@ -1,4 +1,6 @@
 import React from 'react';
+import { Body, Caption, Footnote } from '@design-system/typography';
+import type { BodyProps, CaptionProps, FootnoteProps } from '@design-system/typography';
 import {
   ProductCardRoot,
   ProductCardAnchor,
@@ -9,14 +11,23 @@ import {
   ProductContent,
   ProductDefaultInfo,
   ProductHoverInfo,
-  ProductTitle,
-  ProductPrice,
-  ProductHoverLabel,
   ProductSizesRow,
   ProductSizeChip,
   ProductColorsRow,
   ProductColorSwatch,
 } from './ProductCard.styles';
+
+export const ProductTitle: React.FC<BodyProps> = (props) => (
+  <Body as="p" weight="medium" truncate {...props} />
+);
+
+export const ProductPrice: React.FC<CaptionProps> = (props) => (
+  <Caption as="p" weight="semibold" {...props} />
+);
+
+export const ProductHoverLabel: React.FC<FootnoteProps> = (props) => (
+  <Footnote as="p" weight="medium" color="subtle" {...props} />
+);
 
 export interface ProductCardProps {
   imageSrc: string;
@@ -51,7 +62,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       {href && <ProductCardAnchor href={href} aria-label={title} tabIndex={0} />}
 
       <ProductImageSection>
-        <ProductImage src={imageSrc} alt={imageAlt} />
+        <ProductImage src={imageSrc} alt={imageAlt} fit="cover" aspectRatio="3 / 4" />
         <ProductImageOverlay />
         {badge && <ProductBadgeEl>{badge}</ProductBadgeEl>}
       </ProductImageSection>

@@ -1,11 +1,9 @@
 import { styled } from '@linaria/react';
 import { tokens } from '@design-system/theme';
+import { Image } from '@design-system/image';
 
-export const ProductImage = styled.img`
-  display: block;
+export const ProductImage = styled(Image)`
   width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
   transition: transform 400ms ease;
 `;
 
@@ -37,6 +35,9 @@ export const ProductImageSection = styled.div`
 `;
 
 export const ProductDefaultInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${tokens.space[1]};
   opacity: 1;
   transform: translateY(0);
   transition:
@@ -62,33 +63,6 @@ export const ProductContent = styled.div`
   position: relative;
   overflow: hidden;
   min-height: 76px;
-`;
-
-export const ProductTitle = styled.p`
-  margin: 0 0 ${tokens.space[1]};
-  font-size: ${tokens.fontSize.md};
-  font-weight: ${tokens.fontWeight.medium};
-  line-height: ${tokens.lineHeight.normal};
-  color: ${tokens.color.textDefault};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-export const ProductPrice = styled.p`
-  margin: 0;
-  font-size: ${tokens.fontSize.sm};
-  font-weight: ${tokens.fontWeight.semibold};
-  line-height: ${tokens.lineHeight.normal};
-  color: ${tokens.color.textDefault};
-`;
-
-export const ProductHoverLabel = styled.p`
-  margin: 0 0 ${tokens.space[1]};
-  font-size: ${tokens.fontSize.xs};
-  font-weight: ${tokens.fontWeight.medium};
-  color: ${tokens.color.textSubtle};
-  line-height: 1;
 `;
 
 export const ProductSizesRow = styled.div`

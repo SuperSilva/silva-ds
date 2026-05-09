@@ -126,6 +126,19 @@ export const arrowRight: IconDefinition = {
   ),
 };
 
+// ─── Informational ───────────────────────────────────────────────────────────
+
+export const info: IconDefinition = {
+  viewBox: '0 0 24 24',
+  element: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 16v-4" />
+      <path d="M12 8h.01" />
+    </>
+  ),
+};
+
 // ─── Actions ─────────────────────────────────────────────────────────────────
 
 export const plus: IconDefinition = {
@@ -166,6 +179,31 @@ export const trash: IconDefinition = {
       <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
     </>
   ),
+};
+
+export const copy: IconDefinition = {
+  viewBox: '0 0 24 24',
+  element: (
+    <>
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+    </>
+  ),
+};
+
+export const file: IconDefinition = {
+  viewBox: '0 0 24 24',
+  element: (
+    <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+    </>
+  ),
+};
+
+export const folder: IconDefinition = {
+  viewBox: '0 0 24 24',
+  element: <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />,
 };
 
 // ─── E-commerce ───────────────────────────────────────────────────────────────
@@ -302,12 +340,17 @@ export const defaultIcons = {
   'chevron-up': chevronUp,
   'arrow-left': arrowLeft,
   'arrow-right': arrowRight,
+  // Informational
+  info,
   // Actions
   plus,
   minus,
   check,
   x,
   trash,
+  copy,
+  file,
+  folder,
   // E-commerce
   cart,
   bag,

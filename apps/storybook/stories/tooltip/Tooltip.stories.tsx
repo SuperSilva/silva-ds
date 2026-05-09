@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { LayerProvider } from '@design-system/layers';
 import { Tooltip } from '@design-system/tooltip';
+import { Icon } from '@design-system/icons';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Components/Tooltip',
   component: Tooltip,
   parameters: { layout: 'centered' },
-  decorators: [
-    (Story) => (
-      <LayerProvider>
-        <Story />
-      </LayerProvider>
-    ),
-  ],
 };
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
@@ -180,18 +173,7 @@ export const OnVariousElements: Story = {
             cursor: 'pointer',
           }}
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          >
-            <rect x="5" y="5" width="9" height="9" rx="1" />
-            <path d="M11 5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h2" />
-          </svg>
+          <Icon name="copy" size={16} />
         </button>
       </Tooltip>
     </div>

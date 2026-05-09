@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { DefaultDropdown, OutlineDropdown, Dropdown } from '@design-system/dropdown';
-import { LayerProvider } from '@design-system/layers';
 import type { DropdownOption, DropdownSize } from '@design-system/dropdown';
 
 const SIZES: DropdownSize[] = ['sm', 'md', 'lg'];
@@ -18,13 +17,6 @@ const meta: Meta<typeof DefaultDropdown> = {
   title: 'Components/Dropdown',
   component: DefaultDropdown,
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <LayerProvider>
-        <Story />
-      </LayerProvider>
-    ),
-  ],
   parameters: {
     docs: {
       description: {

@@ -1,6 +1,7 @@
-import React, { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useId, useRef, useState } from 'react';
 import { cx } from '@linaria/core';
-import { FloatingLayer } from '@design-system/layers';
+import { FloatingLayer, useDisclosure, useDismiss } from '@design-system/layers';
+import { Icon } from '@design-system/icons';
 import {
   DefaultDropdownTrigger,
   OutlineDropdownTrigger,
@@ -24,11 +25,18 @@ export interface DropdownProps {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
+  /** Controlled open state. */
+  open?: boolean;
+  /** Initial open state when uncontrolled. */
+  defaultOpen?: boolean;
+  /** Called when the panel open state changes. */
+  onOpenChange?: (open: boolean) => void;
   placeholder?: string;
   size?: DropdownSize;
   disabled?: boolean;
   id?: string;
   name?: string;
+  'aria-label'?: string;
 }
 
 interface PanelPosition {
@@ -37,42 +45,37 @@ interface PanelPosition {
   width: number;
 }
 
-function ChevronIcon() {
-  return (
-    <svg
-      data-chevron=""
-      xmlns="http://www.w3.org/2000/svg"
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <polyline points="6 9 12 15 18 9" />
-    </svg>
-  );
-}
-
 function useDropdown({
   options,
   value: controlledValue,
   defaultValue,
   onChange,
-}: Pick<DropdownProps, 'options' | 'value' | 'defaultValue' | 'onChange'>) {
+  open: controlledOpen,
+  defaultOpen,
+  onOpenChange,
+}: Pick<
+  DropdownProps,
+  'options' | 'value' | 'defaultValue' | 'onChange' | 'open' | 'defaultOpen' | 'onOpenChange'
+>) {
   const isControlled = controlledValue !== undefined;
   const [internalValue, setInternalValue] = useState<string>(defaultValue ?? '');
   const value = isControlled ? controlledValue : internalValue;
 
-  const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [panelPosition, setPanelPosition] = useState<PanelPosition>({ top: 0, left: 0, width: 0 });
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  const {
+    isOpen,
+    open: openPanel,
+    close: closePanel,
+  } = useDisclosure({
+    open: controlledOpen,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const open = useCallback(() => {
     const rect = triggerRef.current?.getBoundingClientRect();
@@ -81,14 +84,14 @@ function useDropdown({
     }
     const selectedIndex = options.findIndex((o) => o.value === value);
     setHighlightedIndex(selectedIndex >= 0 ? selectedIndex : 0);
-    setIsOpen(true);
-  }, [options, value]);
+    openPanel();
+  }, [options, value, openPanel]);
 
   const close = useCallback(() => {
-    setIsOpen(false);
+    closePanel();
     setHighlightedIndex(-1);
     triggerRef.current?.focus();
-  }, []);
+  }, [closePanel]);
 
   const selectOption = useCallback(
     (option: DropdownOption) => {
@@ -100,17 +103,16 @@ function useDropdown({
     [isControlled, onChange, close],
   );
 
-  useEffect(() => {
-    if (!isOpen) return;
-    function handleMouseDown(e: MouseEvent) {
-      const target = e.target as Node;
-      if (!panelRef.current?.contains(target) && !triggerRef.current?.contains(target)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleMouseDown);
-    return () => document.removeEventListener('mousedown', handleMouseDown);
-  }, [isOpen]);
+  // Outside mousedown — use mousedown (not pointerdown) so e.preventDefault() on
+  // option mousedown can fire before this and prevent blur on the trigger button.
+  useDismiss({
+    enabled: isOpen,
+    onClose: close,
+    refs: [panelRef as React.RefObject<Element | null>, triggerRef as React.RefObject<Element | null>],
+    closeOnEscape: false, // handled in key handlers below to allow preventDefault
+    closeOnOutsidePointerDown: true,
+    outsideEventType: 'mousedown',
+  });
 
   const handleTriggerKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -175,11 +177,15 @@ const DropdownBase = forwardRef<HTMLButtonElement, DropdownBaseProps>(function D
     value: controlledValue,
     defaultValue,
     onChange,
+    open: controlledOpen,
+    defaultOpen,
+    onOpenChange,
     placeholder = 'Select an option',
     size = 'md',
     disabled = false,
     id,
     name,
+    'aria-label': ariaLabel,
   },
   ref,
 ) {
@@ -200,7 +206,15 @@ const DropdownBase = forwardRef<HTMLButtonElement, DropdownBaseProps>(function D
     selectOption,
     handleTriggerKeyDown,
     handlePanelKeyDown,
-  } = useDropdown({ options, value: controlledValue, defaultValue, onChange });
+  } = useDropdown({
+    options,
+    value: controlledValue,
+    defaultValue,
+    onChange,
+    open: controlledOpen,
+    defaultOpen,
+    onOpenChange,
+  });
 
   const selectedOption = options.find((o) => o.value === value);
   const displayLabel = selectedOption?.label ?? placeholder;
@@ -225,6 +239,7 @@ const DropdownBase = forwardRef<HTMLButtonElement, DropdownBaseProps>(function D
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={isOpen ? listboxId : undefined}
+        aria-label={ariaLabel ?? placeholder}
         disabled={disabled}
         className={dropdownTriggerSizes[size]}
         onClick={() => (isOpen ? close() : open())}
@@ -233,7 +248,7 @@ const DropdownBase = forwardRef<HTMLButtonElement, DropdownBaseProps>(function D
         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>
           {displayLabel}
         </span>
-        <ChevronIcon />
+        <Icon name="chevron-down" size="xs" data-chevron="" />
       </TriggerRoot>
 
       {isOpen && (

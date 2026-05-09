@@ -1,12 +1,16 @@
+import React from 'react';
 import { styled } from '@linaria/react';
 import { tokens } from '@design-system/theme';
+import { Body } from '@design-system/typography';
+import type { BodyProps } from '@design-system/typography';
 
-export type ListItemLabelProps = React.HTMLAttributes<HTMLSpanElement>;
-
-export const ListItemLabel = styled.span`
-  font-size: ${tokens.fontSize.md};
-  font-weight: ${tokens.fontWeight.medium};
-  color: ${tokens.color.textDefault};
+const ListItemLabelRoot = styled(Body)`
   line-height: ${tokens.lineHeight.tight};
 `;
+
+export type ListItemLabelProps = BodyProps;
+
+export const ListItemLabel: React.FC<ListItemLabelProps> = (props) => (
+  <ListItemLabelRoot as="span" weight="medium" {...props} />
+);
 ListItemLabel.displayName = 'ListItemLabel';

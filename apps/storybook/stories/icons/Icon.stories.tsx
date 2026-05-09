@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Icon } from '@design-system/icons';
-import { IconProvider } from '@design-system/icons';
+import { Icon, IconProvider } from '@design-system/icons';
 import { defaultIcons } from '@design-system/icons';
 import type { IconSize } from '@design-system/icons';
 import type { DefaultIconName } from '@design-system/icons';
@@ -45,59 +44,36 @@ const meta: Meta<typeof Icon> = {
 export default meta;
 
 export const Default: StoryObj<typeof Icon> = {
-  render: (args) => (
-    <IconProvider>
-      <Icon {...args} />
-    </IconProvider>
-  ),
-};
-
-export const InlineFallback: StoryObj<typeof Icon> = {
-  parameters: {
-    docs: {
-      description: { story: 'Renders inline SVG when no `<IconProvider>` is in the tree.' },
-    },
-  },
   render: (args) => <Icon {...args} />,
 };
 
 export const Sizes: StoryObj<typeof Icon> = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <IconProvider>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        {SIZES.map((size) => (
-          <div
-            key={size}
-            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '4px' }}
-          >
-            <Icon name="home" size={size} />
-            <span style={{ fontSize: '11px', color: '#666' }}>{size}</span>
-          </div>
-        ))}
-      </div>
-    </IconProvider>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      {SIZES.map((size) => (
+        <div key={size} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <Icon name="home" size={size} />
+          <span style={{ fontSize: '11px', color: '#666' }}>{size}</span>
+        </div>
+      ))}
+    </div>
   ),
 };
 
 export const AllIcons: StoryObj<typeof Icon> = {
   parameters: { controls: { disable: true } },
   render: () => (
-    <IconProvider>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
-        {ICON_NAMES.map((name) => (
-          <div
-            key={name}
-            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '6px' }}
-          >
-            <Icon name={name} size="lg" />
-            <span style={{ fontSize: '11px', color: '#666', maxWidth: '80px', wordBreak: 'break-all' }}>
-              {name}
-            </span>
-          </div>
-        ))}
-      </div>
-    </IconProvider>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
+      {ICON_NAMES.map((name) => (
+        <div key={name} style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <Icon name={name} size="lg" />
+          <span style={{ fontSize: '11px', color: '#666', maxWidth: '80px', wordBreak: 'break-all' }}>
+            {name}
+          </span>
+        </div>
+      ))}
+    </div>
   ),
 };
 

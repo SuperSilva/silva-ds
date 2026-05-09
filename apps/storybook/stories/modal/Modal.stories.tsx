@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Modal, ModalOverlay } from '@design-system/modal';
-import { LayerProvider } from '@design-system/layers';
+import { Modal, ModalOverlay, useModal } from '@design-system/modal';
 import type { ModalSize } from '@design-system/modal';
 
 const SIZES: ModalSize[] = ['sm', 'md', 'lg'];
@@ -10,19 +9,14 @@ const meta: Meta<typeof Modal> = {
   title: 'Components/Modal',
   component: Modal,
   tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <LayerProvider>
-        <Story />
-      </LayerProvider>
-    ),
-  ],
   parameters: {
     docs: {
       description: {
         component:
           'A dialog modal rendered via React portal into the `LayerProvider` container. ' +
-          '`ModalOverlay` is a separate component — include it when you want a backdrop.',
+          'Pass a `trigger` element to let the Modal manage its own open/close state. ' +
+          'Use `open`/`onOpenChange` for fully controlled usage. ' +
+          '`overlay` adds a backdrop; `closeOnOverlayClick` (default: true) dismisses on backdrop click.',
       },
     },
   },
@@ -30,10 +24,13 @@ const meta: Meta<typeof Modal> = {
 
 export default meta;
 
-function OpenButton({ onClick }: { onClick: () => void }) {
+// ─── Inner close button (uses useModal context) ─────────────────────────────
+
+function CloseButton({ label = 'Close' }: { label?: string }) {
+  const { close } = useModal();
   return (
     <button
-      onClick={onClick}
+      onClick={close}
       style={{
         padding: '8px 16px',
         background: '#0070f3',
@@ -41,99 +38,114 @@ function OpenButton({ onClick }: { onClick: () => void }) {
         border: 'none',
         borderRadius: '6px',
         cursor: 'pointer',
-        fontSize: '14px',
       }}
     >
-      Open modal
+      {label}
     </button>
   );
 }
 
-export const Default: StoryObj = {
-  name: 'Default (no overlay)',
+// ─── Stories ─────────────────────────────────────────────────────────────────
+
+export const WithTrigger: StoryObj = {
+  name: 'With trigger (self-managed)',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Modal
+      trigger={
+        <button
+          style={{
+            padding: '8px 16px',
+            background: '#0070f3',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+          }}
+        >
+          Open modal
+        </button>
+      }
+      overlay
+      aria-labelledby="trigger-modal-title"
+    >
+      <h2 id="trigger-modal-title" style={{ margin: '0 0 8px', fontSize: '18px' }}>
+        Self-managed modal
+      </h2>
+      <p style={{ margin: '0 0 20px', color: '#71717a', fontSize: '14px' }}>
+        The modal manages its own open/close state. Click the backdrop or press Escape to dismiss. Use{' '}
+        <code>useModal()</code> inside to access <code>close()</code>.
+      </p>
+      <CloseButton />
+    </Modal>
+  ),
+};
+
+export const Controlled: StoryObj = {
+  name: 'Controlled (open / onOpenChange)',
+  parameters: { controls: { disable: true } },
   render: () => {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <OpenButton onClick={() => setOpen(true)} />
-        {open && (
-          <Modal onClose={() => setOpen(false)} aria-labelledby="modal-title">
-            <h2 id="modal-title" style={{ margin: '0 0 8px', fontSize: '18px' }}>
-              Modal title
-            </h2>
-            <p style={{ margin: '0 0 20px', color: '#71717a', fontSize: '14px' }}>
-              This modal has no overlay. Press Escape or click Close to dismiss.
-            </p>
-            <button
-              onClick={() => setOpen(false)}
-              style={{
-                padding: '8px 16px',
-                background: '#0070f3',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '6px',
-                cursor: 'pointer',
-              }}
-            >
-              Close
-            </button>
-          </Modal>
-        )}
+        <button
+          onClick={() => setOpen(true)}
+          style={{
+            padding: '8px 16px',
+            background: '#0070f3',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+          }}
+        >
+          Open modal
+        </button>
+        <Modal open={open} onOpenChange={setOpen} overlay aria-labelledby="controlled-title">
+          <h2 id="controlled-title" style={{ margin: '0 0 8px', fontSize: '18px' }}>
+            Controlled modal
+          </h2>
+          <p style={{ margin: '0 0 20px', color: '#71717a', fontSize: '14px' }}>
+            Parent owns the open state. Press Escape or click the backdrop to close.
+          </p>
+          <CloseButton />
+        </Modal>
       </>
     );
   },
 };
 
-export const WithOverlay: StoryObj = {
-  name: 'With overlay',
-  render: () => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <OpenButton onClick={() => setOpen(true)} />
-        {open && (
-          <>
-            <ModalOverlay onClick={() => setOpen(false)} />
-            <Modal onClose={() => setOpen(false)} aria-labelledby="overlay-modal-title">
-              <h2 id="overlay-modal-title" style={{ margin: '0 0 8px', fontSize: '18px' }}>
-                Modal with overlay
-              </h2>
-              <p style={{ margin: '0 0 20px', color: '#71717a', fontSize: '14px' }}>
-                Click the backdrop or press Escape to close.
-              </p>
-              <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
-                <button
-                  onClick={() => setOpen(false)}
-                  style={{
-                    padding: '8px 16px',
-                    background: '#f4f4f5',
-                    border: 'none',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => setOpen(false)}
-                  style={{
-                    padding: '8px 16px',
-                    background: '#0070f3',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Confirm
-                </button>
-              </div>
-            </Modal>
-          </>
-        )}
-      </>
-    );
-  },
+export const NoOverlay: StoryObj = {
+  name: 'No overlay',
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <Modal
+      trigger={
+        <button
+          style={{
+            padding: '8px 16px',
+            background: '#0070f3',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+          }}
+        >
+          Open modal
+        </button>
+      }
+      overlay={false}
+      aria-labelledby="no-overlay-title"
+    >
+      <h2 id="no-overlay-title" style={{ margin: '0 0 8px', fontSize: '18px' }}>
+        No overlay
+      </h2>
+      <p style={{ margin: '0 0 20px', color: '#71717a', fontSize: '14px' }}>
+        Press Escape or click Close to dismiss.
+      </p>
+      <CloseButton />
+    </Modal>
+  ),
 };
 
 export const Sizes: StoryObj = {
@@ -160,32 +172,23 @@ export const Sizes: StoryObj = {
             </button>
           ))}
         </div>
-        {openSize && (
-          <>
-            <ModalOverlay onClick={() => setOpenSize(null)} />
-            <Modal size={openSize} onClose={() => setOpenSize(null)} aria-labelledby="size-modal-title">
-              <h2 id="size-modal-title" style={{ margin: '0 0 8px', fontSize: '18px' }}>
-                Size: {openSize}
-              </h2>
-              <p style={{ margin: '0 0 20px', color: '#71717a', fontSize: '14px' }}>
-                This is the <strong>{openSize}</strong> modal variant.
-              </p>
-              <button
-                onClick={() => setOpenSize(null)}
-                style={{
-                  padding: '8px 16px',
-                  background: '#0070f3',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                }}
-              >
-                Close
-              </button>
-            </Modal>
-          </>
-        )}
+        <Modal
+          open={openSize !== null}
+          onOpenChange={(o) => {
+            if (!o) setOpenSize(null);
+          }}
+          size={openSize ?? 'md'}
+          overlay
+          aria-labelledby="size-modal-title"
+        >
+          <h2 id="size-modal-title" style={{ margin: '0 0 8px', fontSize: '18px' }}>
+            Size: {openSize}
+          </h2>
+          <p style={{ margin: '0 0 20px', color: '#71717a', fontSize: '14px' }}>
+            This is the <strong>{openSize}</strong> modal variant.
+          </p>
+          <CloseButton />
+        </Modal>
       </>
     );
   },

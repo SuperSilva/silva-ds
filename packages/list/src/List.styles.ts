@@ -1,6 +1,7 @@
 import { styled } from '@linaria/react';
 import { css } from '@linaria/core';
 import { tokens } from '@design-system/theme';
+import { RoundedSmImage } from '@design-system/image';
 
 export const UnorderedListRoot = styled.ul`
   margin: 0;
@@ -73,11 +74,8 @@ export const ListItemIconRoot = styled.span`
   line-height: 1;
 `;
 
-export const ListItemImageRoot = styled.img`
-  display: block;
+export const ListItemImageRoot = styled(RoundedSmImage)`
   flex-shrink: 0;
-  object-fit: cover;
-  border-radius: ${tokens.radius.sm};
 `;
 
 export const listItemImageSizes = {

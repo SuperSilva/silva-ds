@@ -1,5 +1,5 @@
 import React, { cloneElement, useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
-import { FloatingLayer } from '@design-system/layers';
+import { FloatingLayer, useDisclosure, useDismiss } from '@design-system/layers';
 import { TooltipWrapper, TooltipBubble, TooltipArrow } from './Tooltip.styles';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
@@ -121,7 +121,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   disabled = false,
   children,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, open: openTooltip, close: closeTooltip } = useDisclosure();
   const [position, setPosition] = useState<TooltipPosition>({
     x: -9999,
     y: -9999,
@@ -143,14 +143,14 @@ export const Tooltip: React.FC<TooltipProps> = ({
   }, []);
 
   const open = useCallback(() => {
-    setIsOpen(true);
-  }, []);
+    openTooltip();
+  }, [openTooltip]);
 
   const close = useCallback(() => {
     clearHoverTimer();
-    setIsOpen(false);
+    closeTooltip();
     setPosition((p) => ({ ...p, visible: false }));
-  }, [clearHoverTimer]);
+  }, [clearHoverTimer, closeTooltip]);
 
   // After the bubble is in the DOM, measure it and compute final position
   useLayoutEffect(() => {
@@ -174,25 +174,14 @@ export const Tooltip: React.FC<TooltipProps> = ({
     };
   }, [isOpen, close]);
 
-  // Close on Escape
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close();
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, close]);
-
-  // Click-outside for click/both modes
-  useEffect(() => {
-    if (!isOpen || trigger === 'hover') return;
-    const handlePointerDown = (e: PointerEvent) => {
-      if (!wrapperRef.current?.contains(e.target as Node)) close();
-    };
-    document.addEventListener('pointerdown', handlePointerDown);
-    return () => document.removeEventListener('pointerdown', handlePointerDown);
-  }, [isOpen, trigger, close]);
+  useDismiss({
+    enabled: isOpen,
+    onClose: close,
+    closeOnEscape: true,
+    closeOnOutsidePointerDown: trigger !== 'hover',
+    refs: [wrapperRef as React.RefObject<Element | null>],
+    outsideEventType: 'pointerdown',
+  });
 
   const handleMouseEnter = useCallback(() => {
     if (disabled || trigger === 'click') return;
