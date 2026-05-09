@@ -28,6 +28,7 @@ export default [
       ...typescript.configs['recommended'].rules,
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       'react/no-unescaped-entities': 'off',

@@ -11,7 +11,7 @@ export default defineConfig(({ command }) => ({
       ? [
           dts({
             include: ['src'],
-            exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts'],
+            exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
             skipDiagnostics: true,
           }),
         ]
@@ -36,7 +36,7 @@ export default defineConfig(({ command }) => ({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts'],
+      exclude: ['src/**/*.test.{ts,tsx}', 'src/tests/test-setup.ts', 'src/**/*.stories.{ts,tsx}'],
     },
   },
 }));

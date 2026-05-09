@@ -31,7 +31,8 @@
       "@design-system/product-card": ["packages/product-card/src/index.ts"],
       "@design-system/tooltip": ["packages/tooltip/src/index.ts"],
       "@design-system/product-grid": ["packages/product-grid/src/index.ts"],
-      "@design-system/carousel": ["packages/carousel/src/index.ts"]
+      "@design-system/carousel": ["packages/carousel/src/index.ts"],
+      "@design-system/footer": ["packages/footer/src/index.ts"]
     }
   }
 }

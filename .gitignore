@@ -25,6 +25,8 @@ storybook-static/
 
 # macOS
 .DS_Store
+.vscode/*
 
 # Claude Code
 .claude/
+CLAUDE.md
